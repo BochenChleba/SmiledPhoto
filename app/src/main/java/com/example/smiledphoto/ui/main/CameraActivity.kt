@@ -1,4 +1,4 @@
-package com.example.smiledphoto
+package com.example.smiledphoto.ui.main
 
 import android.os.Environment
 import android.util.Log
@@ -6,14 +6,18 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.example.smiledphoto.data.constants.Constants
+import com.example.smiledphoto.extension.showDialog
+import com.example.smiledphoto.ui.photo_dialog.PhotoDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import java.io.File
 import java.util.concurrent.Executors
 
-class MainActivity : CameraActivity() {
+class CameraActivity : MainActivity() {
     private val processingExecutor = Executors.newCachedThreadPool()
-    private val imageAnalyzer = ImageAnalyzer { savePhoto() }
+    private val imageAnalyzer =
+        ImageAnalyzer { savePhoto() }
     private val previewUseCase: Preview by lazy {
         Preview.Builder()
             .build()
@@ -56,7 +60,9 @@ class MainActivity : CameraActivity() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     Log.d(Constants.TAG, "Photo saved")
-                    showDialog(PhotoDialog.newInstance(outputFile.path))
+                    showDialog(
+                        PhotoDialog.newInstance(outputFile.path)
+                    )
                 }
 
                 override fun onError(exception: ImageCaptureException) {

@@ -1,4 +1,4 @@
-package com.example.smiledphoto
+package com.example.smiledphoto.ui.photo_dialog
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import com.example.smiledphoto.*
+import com.example.smiledphoto.data.constants.Constants
 import com.example.smiledphoto.databinding.DialogPhotoBinding
+import com.example.smiledphoto.extension.gone
+import com.example.smiledphoto.extension.putExtras
 import kotlinx.android.synthetic.main.dialog_photo.*
 import org.jetbrains.anko.support.v4.toast
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
 
-class PhotoDialog : DialogFragment() {
+class PhotoDialog : DialogFragment(), KoinComponent {
 
     companion object {
         fun newInstance(photoPath: String) = PhotoDialog().putExtras {
@@ -21,9 +26,7 @@ class PhotoDialog : DialogFragment() {
         }
     }
 
-    private val viewModel: PhotoDialogViewModel by lazy {
-        ViewModelProvider(this).get(PhotoDialogViewModel::class.java)
-    }
+    private val viewModel: PhotoDialogViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +34,8 @@ class PhotoDialog : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil
-            .inflate<DialogPhotoBinding>(inflater, R.layout.dialog_photo, container, false)
+            .inflate<DialogPhotoBinding>(inflater,
+                R.layout.dialog_photo, container, false)
             .apply {
                 lifecycleOwner = this@PhotoDialog
                 dialog = this@PhotoDialog
@@ -69,6 +73,7 @@ class PhotoDialog : DialogFragment() {
 
     private fun observePhotoBitmap() {
         viewModel.photoBitmapLiveData.observe(viewLifecycleOwner, Observer { bitmap ->
+            progressBar.gone()
             if (bitmap == null) {
                 toast(R.string.photo_load_error_toast)
                 dismiss()

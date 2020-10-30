@@ -1,4 +1,4 @@
-package com.example.smiledphoto
+package com.example.smiledphoto.ui.photo_dialog
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.smiledphoto.data.constants.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
