@@ -11,8 +11,7 @@ class SharedPreferences(context: Context) :
         private const val KEY_QUALITY = "1"
         private const val KEY_SMILING_PROBABILITY_THRESHOLD = "2"
         private const val KEY_CAMERA_TYPE = "3"
-        private val DEFAULT_QUALITY = QualityEnum.MEDIUM.ordinal
-        private const val DEFAULT_SMILING_PROBABILITY_THRESHOLD = 70
+        private val DEFAULT_QUALITY = QualityEnum.HIGH.ordinal
         private val DEFAULT_CAMERA_TYPE = CameraTypeEnum.BACK.ordinal
     }
 
@@ -34,14 +33,14 @@ class SharedPreferences(context: Context) :
             }
         }
 
-    override var smilingProbabilityThreshold: Int
-        get() = sharedPreferencesInstance.getInt(
+    override var smilingProbabilityThreshold: Float
+        get() = sharedPreferencesInstance.getFloat(
             KEY_SMILING_PROBABILITY_THRESHOLD,
-            DEFAULT_SMILING_PROBABILITY_THRESHOLD
+            Constants.DEFAULT_SMILING_PROBABILITY_THRESHOLD
         )
         set(value) {
             sharedPreferencesInstance.edit().apply {
-                putInt(KEY_SMILING_PROBABILITY_THRESHOLD, value)
+                putFloat(KEY_SMILING_PROBABILITY_THRESHOLD, value)
                 apply()
             }
         }

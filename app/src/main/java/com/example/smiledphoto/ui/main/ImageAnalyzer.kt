@@ -21,7 +21,8 @@ class ImageAnalyzer(
         .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
         .build()
     private val detector = FaceDetection.getClient(detectorOptions)
-    var active = true
+    var active = false
+    var smilingProbabilityThreshold = Constants.DEFAULT_SMILING_PROBABILITY_THRESHOLD
 
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
@@ -33,7 +34,7 @@ class ImageAnalyzer(
                         return@addOnSuccessListener
                     }
                     val allFacesSmiled = faces.isNotEmpty() && faces.all {
-                        it.smilingProbability ?: 0f > Constants.SMILING_PROBABILITY_THRESHOLD
+                        it.smilingProbability ?: 0f > smilingProbabilityThreshold
                     }
                     if (allFacesSmiled) {
                         active = false

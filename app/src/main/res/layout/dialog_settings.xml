@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="contentDescription">
     <data>
+        <import type="com.example.smiledphoto.data.enumeration.QualityEnum" />
+        <import type="com.example.smiledphoto.data.enumeration.CameraTypeEnum" />
         <variable
             name="dialog"
             type="com.example.smiledphoto.ui.settings_dialog.SettingsDialog" />
@@ -15,14 +17,205 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
        <TextView
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="hello"
-           android:textSize="48sp"
+           android:id="@+id/qualityLabelTextView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/settings_quality_label"
+           android:textSize="18sp"
+           android:layout_marginStart="16dp"
+           android:layout_marginTop="20dp"
+           android:textColor="@color/colorWhite"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/titleTextView"
            />
+
+        <RadioGroup
+            android:id="@+id/qualityRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/qualityLabelTextView"
+            >
+
+            <RadioButton
+                android:id="@+id/qualityHighRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/colorWhite"
+                android:buttonTint="@color/colorYellow"
+                android:text="@string/settings_quality_high"
+                android:checked="@{viewModel.preferences.quality == QualityEnum.HIGH}"
+                />
+
+            <RadioButton
+                android:id="@+id/qualityMediumRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/colorWhite"
+                android:buttonTint="@color/colorYellow"
+                android:text="@string/settings_quality_medium"
+                android:checked="@{viewModel.preferences.quality == QualityEnum.MEDIUM}"
+                />
+
+            <RadioButton
+                android:id="@+id/qualityLowRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/colorWhite"
+                android:buttonTint="@color/colorYellow"
+                android:text="@string/settings_quality_low"
+                android:checked="@{viewModel.preferences.quality == QualityEnum.LOW}"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/probabilityThresholdLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_probability_threshold"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="@id/qualityLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/qualityRadioGroup"
+            />
+
+        <SeekBar
+            android:id="@+id/probabilityThresholdSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:max="100"
+            android:progress="@{(int) (viewModel.preferences.smilingProbabilityThreshold * 100)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/probabilityThresholdLabelTextView"
+            app:layout_constraintEnd_toStartOf="@id/probabilityThresholdValueTextView"
+            />
+
+        <TextView
+            android:id="@+id/probabilityThresholdValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.preferences.smilingProbabilityThreshold)}"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/probabilityThresholdSeekBar"
+            app:layout_constraintBottom_toBottomOf="@id/probabilityThresholdSeekBar"
+            />
+
+        <TextView
+            android:id="@+id/cameraTypeLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_camera_type"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="@id/qualityLabelTextView"
+            app:layout_constraintTop_toBottomOf="@id/probabilityThresholdSeekBar"
+            />
+
+        <RadioGroup
+            android:id="@+id/cameraTypeRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cameraTypeLabelTextView"
+            >
+
+            <RadioButton
+                android:id="@+id/cameraTypeBackRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/colorWhite"
+                android:buttonTint="@color/colorYellow"
+                android:text="@string/settings_camera_type_back"
+                android:checked="@{viewModel.preferences.cameraType == CameraTypeEnum.BACK}"
+                />
+
+            <RadioButton
+                android:id="@+id/cameraTypeFrontRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/colorWhite"
+                android:buttonTint="@color/colorYellow"
+                android:text="@string/settings_camera_type_front"
+                android:checked="@{viewModel.preferences.cameraType == CameraTypeEnum.FRONT}"
+                />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/applyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorAccent"
+            android:text="@string/settings_apply"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> dialog.saveSettings()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cameraTypeRadioGroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/cancelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/colorAccent"
+            android:text="@string/settings_cancel"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> dialog.dismiss()}"
+            app:layout_constraintEnd_toStartOf="@id/applyTextView"
+            app:layout_constraintTop_toBottomOf="@id/cameraTypeRadioGroup"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

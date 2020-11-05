@@ -5,7 +5,7 @@ import android.Manifest
 object Constants {
     const val TAG = "Smiled Photo"
     const val REQUEST_CODE_PERMISSIONS = 1
-    const val SMILING_PROBABILITY_THRESHOLD = 0.40f
+    const val DEFAULT_SMILING_PROBABILITY_THRESHOLD = 0.65f
     const val PHOTO_FILE_PREFIX = "SmiledFace_"
     const val PHOTO_FILE_EXTENSION = ".jpg"
     const val BUNDLE_PHOTO_PATH = "1"

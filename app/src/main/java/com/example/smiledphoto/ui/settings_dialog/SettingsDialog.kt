@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
-import com.example.smiledphoto.*
-import com.example.smiledphoto.data.constants.Constants
-import com.example.smiledphoto.databinding.DialogPhotoBinding
+import com.example.smiledphoto.R
+import com.example.smiledphoto.data.enumeration.CameraTypeEnum
+import com.example.smiledphoto.data.enumeration.QualityEnum
 import com.example.smiledphoto.databinding.DialogSettingsBinding
-import com.example.smiledphoto.extension.gone
-import com.example.smiledphoto.extension.putExtras
-import kotlinx.android.synthetic.main.dialog_photo.*
-import org.jetbrains.anko.support.v4.toast
+import com.example.smiledphoto.extension.setProgressChangedListener
+import kotlinx.android.synthetic.main.dialog_settings.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 
@@ -25,6 +22,7 @@ class SettingsDialog : DialogFragment(), KoinComponent {
         fun newInstance() = SettingsDialog()
     }
 
+    lateinit var onSettingsChanged: () -> Unit
     private val viewModel: SettingsDialogViewModel by viewModel()
 
     override fun onCreateView(
@@ -35,10 +33,10 @@ class SettingsDialog : DialogFragment(), KoinComponent {
         val binding = DataBindingUtil
             .inflate<DialogSettingsBinding>(inflater,
                 R.layout.dialog_settings, container, false)
-            .apply {
-                lifecycleOwner = this@SettingsDialog
-                dialog = this@SettingsDialog
-                viewModel = this@SettingsDialog.viewModel
+            .also {
+                it.lifecycleOwner = this
+                it.dialog = this
+                it.viewModel = viewModel
             }
         return binding.root
     }
@@ -65,6 +63,43 @@ class SettingsDialog : DialogFragment(), KoinComponent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        probabilityThresholdSeekBar.setProgressChangedListener { progress ->
+            probabilityThresholdValueTextView.text = (progress.toFloat() / 100).toString()
+        }
     }
 
+    fun saveSettings() {
+        viewModel.savePreferences(
+            getSelectedQuality(),
+            getSelectedSmilingProbability(),
+            getSelectedCameraType()
+        )
+        onSettingsChanged()
+        dismiss()
+    }
+
+    private fun getSelectedQuality() =
+        when (qualityRadioGroup.checkedRadioButtonId) {
+            qualityHighRadioButton.id ->
+                QualityEnum.HIGH
+            qualityMediumRadioButton.id ->
+                QualityEnum.MEDIUM
+            qualityLowRadioButton.id ->
+                QualityEnum.LOW
+            else ->
+                throw IllegalStateException("All radio buttons must refer to Quality Enum value")
+        }
+
+    private fun getSelectedSmilingProbability() =
+        probabilityThresholdSeekBar.progress.toFloat() / 100
+
+    private fun getSelectedCameraType() =
+        when (cameraTypeRadioGroup.checkedRadioButtonId) {
+            cameraTypeBackRadioButton.id ->
+                CameraTypeEnum.BACK
+            cameraTypeFrontRadioButton.id ->
+                CameraTypeEnum.FRONT
+            else ->
+                throw IllegalStateException("All radio buttons must refer to Camera Type Enum value")
+        }
 }

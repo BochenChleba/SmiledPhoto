@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.smiledphoto.data.constants.Constants
 import com.example.smiledphoto.R
 import com.example.smiledphoto.databinding.ActivityMainBinding
@@ -73,6 +75,7 @@ abstract class MainActivity : AppCompatActivity(), KoinComponent {
     }
 
     fun showSettingsDialog() {
+        viewModel.isImageAnalysisActive.value = false
         showDialog(SettingsDialog.newInstance())
     }
 }

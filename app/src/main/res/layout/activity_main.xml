@@ -27,17 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/pocButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:padding="16dp"
-            android:text="Again"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/probabilityTextView"
             android:layout_width="wrap_content"
@@ -48,6 +37,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
+            android:alpha="0.13"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="wrap_content"
@@ -57,7 +55,32 @@
             android:src="@drawable/ic_settings"
             android:onClick="@{() -> activity.showSettingsDialog()}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cameraButton"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/cameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="16dp"
+            android:src="@{viewModel.isImageAnalysisActive ? @drawable/ic_pause : @drawable/ic_photo}"
+            android:onClick="@{() -> viewModel.toggleIsImageAnalysisActive()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/settingsButton"
+            app:layout_constraintStart_toEndOf="@id/fileExplorerButton"/>
+
+        <ImageButton
+            android:id="@+id/fileExplorerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:padding="16dp"
+            android:src="@drawable/ic_folder"
+            android:onClick="@{() -> activity.showSettingsDialog()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cameraButton"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

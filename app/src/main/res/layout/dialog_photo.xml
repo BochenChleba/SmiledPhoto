@@ -22,7 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,6 +36,8 @@
                 android:layout_weight="1"
                 style="@style/PhotoActionItem"
                 android:text="SHARE"
+                android:drawableStart="@drawable/ic_share"
+                android:drawablePadding="12dp"
                 />
 
             <TextView
@@ -42,6 +46,8 @@
                 android:layout_weight="1"
                 style="@style/PhotoActionItem"
                 android:text="DELETE"
+                android:drawableStart="@drawable/ic_delete"
+                android:drawablePadding="12dp"
                 />
 
             <TextView
@@ -50,6 +56,8 @@
                 android:layout_weight="1"
                 style="@style/PhotoActionItem"
                 android:text="CLOSE"
+                android:drawableStart="@drawable/ic_close"
+                android:drawablePadding="12dp"
                 />
         </LinearLayout>
 
@@ -70,7 +78,6 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/YellowAccentStyle"
             app:layout_constraintTop_toTopOf="@id/photoPreviewImageView"
             app:layout_constraintStart_toStartOf="@id/photoPreviewImageView"
             app:layout_constraintEnd_toEndOf="@id/photoPreviewImageView"

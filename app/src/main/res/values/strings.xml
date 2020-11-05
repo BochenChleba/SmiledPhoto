@@ -3,4 +3,16 @@
 
     <string name="permissions_not_granted_toast">Permissions not granted by the user</string>
     <string name="photo_load_error_toast">Cannot load photo</string>
+    <string name="take_photo_error_toast">Error occurred while taking photo</string>
+
+    <string name="settings_quality_label">Photo quality</string>
+    <string name="settings_probability_threshold">Smiling probability threshold</string>
+    <string name="settings_camera_type">Camera</string>
+    <string name="settings_quality_high">High</string>
+    <string name="settings_quality_medium">Medium</string>
+    <string name="settings_quality_low">Low</string>
+    <string name="settings_camera_type_front">Front</string>
+    <string name="settings_camera_type_back">Back</string>
+    <string name="settings_apply">Apply</string>
+    <string name="settings_cancel">Cancel</string>
 </resources>

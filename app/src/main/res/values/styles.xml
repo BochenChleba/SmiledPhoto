@@ -18,8 +18,4 @@
         <item name="android:paddingBottom">16dp</item>
     </style>
 
-    <style name="YellowAccentStyle" parent="AppTheme">
-        <item name="colorAccent">@color/colorYellow</item>
-    </style>
-
 </resources>
