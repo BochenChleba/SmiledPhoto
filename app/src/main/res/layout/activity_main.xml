@@ -5,6 +5,7 @@
     tools:ignore="contentDescription">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="activity"
             type="com.example.smiledphoto.ui.main.MainActivity" />
@@ -77,10 +78,37 @@
             android:backgroundTint="@android:color/transparent"
             android:padding="16dp"
             android:src="@drawable/ic_folder"
-            android:onClick="@{() -> activity.showSettingsDialog()}"
+            android:onClick="@{() -> activity.openPhotoDirectory()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cameraButton"/>
+
+        <TextView
+            android:id="@+id/promptTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="8dp"
+            android:text="@string/prompt_take_photo"
+            android:textAllCaps="true"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.isImageAnalysisActive ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/settingsButton"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

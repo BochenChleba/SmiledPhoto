@@ -12,7 +12,9 @@ import com.example.smiledphoto.R
 import com.example.smiledphoto.data.constants.Constants
 import com.example.smiledphoto.data.enumeration.CameraTypeEnum
 import com.example.smiledphoto.data.enumeration.QualityEnum
+import com.example.smiledphoto.extension.gone
 import com.example.smiledphoto.extension.showDialog
+import com.example.smiledphoto.extension.visible
 import com.example.smiledphoto.ui.photo_dialog.PhotoDialog
 import com.example.smiledphoto.ui.settings_dialog.SettingsDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +24,15 @@ import java.util.concurrent.Executors
 
 class CameraActivity : MainActivity() {
     private val processingExecutor = Executors.newCachedThreadPool()
-    private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var cameraSelector =
+        when (viewModel.preferences.cameraType) {
+            CameraTypeEnum.BACK -> {
+                CameraSelector.DEFAULT_BACK_CAMERA
+            }
+            CameraTypeEnum.FRONT -> {
+                CameraSelector.DEFAULT_FRONT_CAMERA
+            }
+        }
     private val imageAnalyzer = ImageAnalyzer { savePhoto() }
     private val previewUseCase: Preview by lazy {
         Preview.Builder()
@@ -51,6 +61,7 @@ class CameraActivity : MainActivity() {
             imageAnalyzer.active = isActive
         })
         viewModel.savedPhotoPath.observe(this, Observer { path ->
+            progressBar.gone()
             if (path == null) {
                 toast(R.string.take_photo_error_toast)
             } else {
@@ -72,7 +83,8 @@ class CameraActivity : MainActivity() {
 
     private fun savePhoto() {
         viewModel.isImageAnalysisActive.value = false
-        val outputFile = viewModel.createOutputFile(getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!)
+        progressBar.visible()
+        val outputFile = viewModel.createOutputFile(pictureDirectory)
         if (viewModel.preferences.quality == QualityEnum.LOW) {
             takeLowQualityPhoto(outputFile)
         } else {

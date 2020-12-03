@@ -9,21 +9,28 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smiledphoto.data.constants.Constants
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.io.File
 
 class PhotoDialogViewModel : ViewModel() {
     val photoBitmapLiveData by lazy { MutableLiveData<Bitmap>() }
+    val photoDeletedLiveData by lazy { MutableLiveData<Boolean>() }
+    var loadPhotoJob: Job? = null
 
-    fun getPhotoBitmapByPath(filePath: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun getPhotoBitmapByPath(filePath: String) {
+        loadPhotoJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 val bitmap = BitmapFactory.decodeFile(filePath)
-                val rotatedBitmap = rotate(filePath!!, bitmap)
+                ensureActive()
+                val rotatedBitmap = rotate(filePath, bitmap)
                 photoBitmapLiveData.postValue(rotatedBitmap)
             } catch (ex: Throwable) {
-                Log.e(Constants.TAG, "Error while loading bitmap from file: $filePath", ex)
-                photoBitmapLiveData.postValue(null)
+                if (ex is CancellationException) {
+                    Log.i(Constants.TAG, "Loading photo has been canceled", ex)
+                } else {
+                    Log.e(Constants.TAG, "Error while loading bitmap from file: $filePath", ex)
+                    photoBitmapLiveData.postValue(null)
+                }
             }
         }
     }
@@ -41,5 +48,18 @@ class PhotoDialogViewModel : ViewModel() {
             ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
         }
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun deleteImage(filePath: String) {
+        loadPhotoJob?.cancel()
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                File(filePath).delete()
+                photoDeletedLiveData.postValue(true)
+            } catch (ex: Throwable) {
+                Log.e(Constants.TAG, "Error while deleting file: $filePath", ex)
+                photoDeletedLiveData.postValue(false)
+            }
+        }
     }
 }

@@ -4,6 +4,16 @@
     <string name="permissions_not_granted_toast">Permissions not granted by the user</string>
     <string name="photo_load_error_toast">Cannot load photo</string>
     <string name="take_photo_error_toast">Error occurred while taking photo</string>
+    <string name="prompt_take_photo">Smile to take a photo :)</string>
+    <string name="cannot_access_directory_error_toast">Cannot access application directory</string>
+    <string name="no_file_explorer_error_toast">No file explorer installed on the device</string>
+    <string name="photo_deleted_toast">Photo deleted</string>
+    <string name="photo_delete_error_toast">Error occurred while deleting photo</string>
+    <string name="photo_item_share_action">Share</string>
+    <string name="photo_item_delete_action">Delete</string>
+    <string name="photo_item_open_action">Open</string>
+    <string name="photo_item_close_action">Close</string>
+    <string name="share_image_chooser_title">Share Image</string>
 
     <string name="settings_quality_label">Photo quality</string>
     <string name="settings_probability_threshold">Smiling probability threshold</string>

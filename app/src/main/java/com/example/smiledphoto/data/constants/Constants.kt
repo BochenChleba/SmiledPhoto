@@ -10,6 +10,8 @@ object Constants {
     const val PHOTO_FILE_EXTENSION = ".jpg"
     const val BUNDLE_PHOTO_PATH = "1"
     const val PREFERENCES_NAME = "SMILED_PHOTO_PREFERENCES"
+    const val IMAGE_MIME_TYPE = "image/png"
+    const val FILE_AUTHORITY = "com.example.smiledphoto"
     val REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
