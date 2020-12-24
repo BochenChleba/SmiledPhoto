@@ -11,6 +11,7 @@ import com.example.smiledphoto.R
 import com.example.smiledphoto.data.enumeration.CameraTypeEnum
 import com.example.smiledphoto.data.enumeration.QualityEnum
 import com.example.smiledphoto.databinding.DialogSettingsBinding
+import com.example.smiledphoto.extension.setMatchParentWidth
 import com.example.smiledphoto.extension.setProgressChangedListener
 import kotlinx.android.synthetic.main.dialog_settings.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,22 +44,7 @@ class SettingsDialog : DialogFragment(), KoinComponent {
 
     override fun onStart() {
         super.onStart()
-        setDialogSize()
-    }
-
-    private fun setDialogSize() {
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            dialog?.window?.setLayout(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        } else {
-            dialog?.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
+        setMatchParentWidth()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -25,4 +25,5 @@
     <string name="settings_camera_type_back">Back</string>
     <string name="settings_apply">Apply</string>
     <string name="settings_cancel">Cancel</string>
+    <string name="gallery_dialog_title">Gallery</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.smiledphoto.ui.main
 
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -84,7 +83,7 @@ class CameraActivity : MainActivity() {
     private fun savePhoto() {
         viewModel.isImageAnalysisActive.value = false
         progressBar.visible()
-        val outputFile = viewModel.createOutputFile(pictureDirectory)
+        val outputFile = viewModel.createOutputFile(galleryDirectory)
         if (viewModel.preferences.quality == QualityEnum.LOW) {
             takeLowQualityPhoto(outputFile)
         } else {

@@ -16,6 +16,7 @@ import com.example.smiledphoto.data.constants.Constants
 import com.example.smiledphoto.databinding.DialogPhotoBinding
 import com.example.smiledphoto.extension.gone
 import com.example.smiledphoto.extension.putExtras
+import com.example.smiledphoto.extension.setMatchParentWidth
 import kotlinx.android.synthetic.main.dialog_photo.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,22 +54,7 @@ class PhotoDialog : DialogFragment(), KoinComponent {
 
     override fun onStart() {
         super.onStart()
-        setDialogSize()
-    }
-
-    private fun setDialogSize() {
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            dialog?.window?.setLayout(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-        } else {
-            dialog?.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        }
+        setMatchParentWidth()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

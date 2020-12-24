@@ -78,7 +78,7 @@
             android:backgroundTint="@android:color/transparent"
             android:padding="16dp"
             android:src="@drawable/ic_folder"
-            android:onClick="@{() -> activity.openPhotoDirectory()}"
+            android:onClick="@{() -> activity.openGallery()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/cameraButton"/>

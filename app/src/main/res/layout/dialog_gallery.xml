@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="contentDescription">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="dialog"
+            type="com.example.smiledphoto.ui.gallery.GalleryDialog" />
+        <variable
+            name="viewModel"
+            type="com.example.smiledphoto.ui.gallery.GalleryDialogViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:text="@string/gallery_dialog_title"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/galleryRecyclerView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintHeight_max="480dp"
+           android:layout_marginTop="16dp"
+           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+           app:layout_constraintTop_toBottomOf="@id/titleTextView"
+           app:layout_constraintBottom_toTopOf="@id/closeTextView"
+           />
+
+        <TextView
+            android:id="@+id/closeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Close"
+            android:padding="16dp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="@{() -> dialog.dismiss()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:orientation="horizontal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_marginHorizontal="16dp"
+            android:progressTint="@color/colorTeal"
+            android:progressBackgroundTint="@color/colorPrimaryEvenDarker"
+            android:max="@{viewModel.filesCountLiveData}"
+            android:progress="@{viewModel.progressLiveData.get()}"
+            android:progressDrawable="@drawable/progress_bar_round_corners"
+            app:layout_constraintTop_toTopOf="@id/closeTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/closeTextView"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
