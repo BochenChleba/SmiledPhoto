@@ -21,7 +21,7 @@ import java.io.File
 
 abstract class MainActivity : AppCompatActivity(), KoinComponent {
 
-    // show recycler item actions on click
+    // handle empty gallery
     // implement photo actions - show, share, delete
 
     protected val viewModel: MainViewModel by inject()

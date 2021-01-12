@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmiledPhoto</string>
+    <string name="app_name">Smiled Photo</string>
 
     <string name="permissions_not_granted_toast">Permissions not granted by the user</string>
     <string name="photo_load_error_toast">Cannot load photo</string>
@@ -26,4 +26,7 @@
     <string name="settings_apply">Apply</string>
     <string name="settings_cancel">Cancel</string>
     <string name="gallery_dialog_title">Gallery</string>
+    <string name="gallery_item_show_action">Show</string>
+    <string name="gallery_item_share_action">Share</string>
+    <string name="gallery_item_delete_action">Delete</string>
 </resources>

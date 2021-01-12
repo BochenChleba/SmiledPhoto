@@ -22,7 +22,6 @@
             android:layout_margin="8dp"
             android:src="@drawable/common_full_open_on_phone"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
 
@@ -44,8 +43,8 @@
             android:orientation="vertical"
             app:layout_constraintStart_toEndOf="@id/photoThumbnailImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/photoThumbnailImageView"
+            app:layout_constraintBottom_toBottomOf="@id/photoThumbnailImageView"
             >
 
             <TextView
@@ -78,5 +77,50 @@
                 />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/showTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_item_show_action"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/shareTextView"
+            app:layout_constraintTop_toBottomOf="@id/photoThumbnailImageView"
+            />
+
+        <TextView
+            android:id="@+id/shareTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_item_share_action"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/showTextView"
+            app:layout_constraintEnd_toStartOf="@id/deleteTextView"
+            app:layout_constraintTop_toBottomOf="@id/photoThumbnailImageView"
+            />
+
+        <TextView
+            android:id="@+id/deleteTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_item_delete_action"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="16dp"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/shareTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/photoThumbnailImageView"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

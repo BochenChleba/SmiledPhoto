@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smiledphoto.databinding.RecyclerItemGalleryBinding
+import com.example.smiledphoto.extension.gone
+import com.example.smiledphoto.extension.visible
 import com.example.smiledphoto.ui.gallery.GalleryItem
 import kotlinx.coroutines.CoroutineScope
 
@@ -13,6 +15,7 @@ class GalleryRecyclerAdapter(
 ) : RecyclerView.Adapter<GalleryRecyclerViewHolder>() {
 
     private val items = mutableListOf<GalleryItem>()
+    private var selectedItemPosition: Int? = null
 
     override fun getItemCount() = items.size
 
@@ -24,6 +27,19 @@ class GalleryRecyclerAdapter(
 
     override fun onBindViewHolder(holder: GalleryRecyclerViewHolder, position: Int) {
         holder.bindItem(items[position])
+        holder.setItemClickListener {
+            val prevSelectedItemPosition = selectedItemPosition
+            selectedItemPosition = position
+            notifyItemChanged(position)
+            if (prevSelectedItemPosition != null) {
+                notifyItemChanged(prevSelectedItemPosition)
+            }
+        }
+        if (position == selectedItemPosition) {
+            holder.showGalleryItemActions()
+        } else {
+            holder.hideGalleryItemActions()
+        }
     }
 
     fun set(itemsToSet: List<GalleryItem>) {
