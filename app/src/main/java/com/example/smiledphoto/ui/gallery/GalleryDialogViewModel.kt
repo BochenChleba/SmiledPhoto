@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.smiledphoto.data.constants.Constants
 import com.example.smiledphoto.extension.postIncrement
 import com.example.smiledphoto.util.BitmapHelper
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -24,10 +26,9 @@ class GalleryDialogViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 File(galleryPath)
-                    .listFiles()!!.toList()
+                    .listFiles()!!.toList().reversed()
                     .also { filesCountLiveData.postValue(it.size) }
-                    .chunked(Constants.GALLERY_BATCH_SIZE)
-                    .forEach { loadPartOfGallery(it) }
+                    .forEach { loadGalleryImage(it) }
             } catch (ex: Throwable) {
                 galleryLiveData.postValue(null)
             } finally {
@@ -36,19 +37,14 @@ class GalleryDialogViewModel : ViewModel() {
         }
     }
 
-    private suspend fun loadPartOfGallery(files: List<File>) = withContext(Dispatchers.IO) {
-        val galleryItems = mutableListOf<GalleryItem>()
-        files.map { file ->
-            async {
-                val path = file.path
-                val bitmap = BitmapFactory.decodeFile(path)
-                val thumbnailBitmap = BitmapHelper.resize(bitmap)
-                val rotatedBitmap = BitmapHelper.rotate(path, thumbnailBitmap)
-                galleryItems.add(GalleryItem(path, rotatedBitmap))
-                progressLiveData.postIncrement()
-            }
-        }.awaitAll()
-        galleryLiveData.postValue(galleryItems)
+    private suspend fun loadGalleryImage(file: File) = withContext(Dispatchers.IO) {
+        val path = file.path
+        val bitmap = BitmapFactory.decodeFile(path)
+        val thumbnailBitmap = BitmapHelper.resize(bitmap)
+        val rotatedBitmap = BitmapHelper.rotate(path, thumbnailBitmap)
+        val galleryItem = GalleryItem(path, rotatedBitmap)
+        progressLiveData.postIncrement()
+        galleryLiveData.postValue(mutableListOf(galleryItem))
     }
 
     fun deleteImage(index: Int) {

@@ -21,8 +21,6 @@ import java.io.File
 
 abstract class MainActivity : AppCompatActivity(), KoinComponent {
 
-    // display photo name and date in gallery recycler
-    // sort photos by date
     // show recycler item actions on click
     // implement photo actions - show, share, delete
 

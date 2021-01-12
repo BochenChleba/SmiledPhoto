@@ -13,7 +13,6 @@ object Constants {
     const val PREFERENCES_NAME = "SMILED_PHOTO_PREFERENCES"
     const val IMAGE_MIME_TYPE = "image/png"
     const val FILE_AUTHORITY = "com.example.smiledphoto"
-    const val GALLERY_BATCH_SIZE = 5
     val REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
