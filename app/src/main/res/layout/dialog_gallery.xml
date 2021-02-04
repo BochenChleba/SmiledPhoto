@@ -32,6 +32,21 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <TextView
+            android:id="@+id/emptyGalleryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gallery_is_empty_text"
+            android:textColor="@color/colorGrey"
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:visibility="@{viewModel.galleryLiveData == null || viewModel.galleryLiveData.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            app:layout_constraintBottom_toTopOf="@id/closeTextView"
+            />
+
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/galleryRecyclerView"
            android:layout_width="match_parent"
@@ -70,6 +85,7 @@
             android:progressBackgroundTint="@color/colorPrimaryEvenDarker"
             android:max="@{viewModel.filesCountLiveData}"
             android:progress="@{viewModel.progressLiveData.get()}"
+            android:visibility="@{viewModel.filesCountLiveData > 0 ? View.VISIBLE : View.GONE}"
             android:progressDrawable="@drawable/progress_bar_round_corners"
             app:layout_constraintTop_toTopOf="@id/closeTextView"
             app:layout_constraintBottom_toBottomOf="parent"

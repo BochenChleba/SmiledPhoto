@@ -25,7 +25,9 @@
     <string name="settings_camera_type_back">Back</string>
     <string name="settings_apply">Apply</string>
     <string name="settings_cancel">Cancel</string>
+
     <string name="gallery_dialog_title">Gallery</string>
+    <string name="gallery_is_empty_text">Gallery is empty</string>
     <string name="gallery_item_show_action">Show</string>
     <string name="gallery_item_share_action">Share</string>
     <string name="gallery_item_delete_action">Delete</string>

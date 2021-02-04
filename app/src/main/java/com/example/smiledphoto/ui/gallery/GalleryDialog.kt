@@ -72,6 +72,9 @@ class GalleryDialog : DialogFragment(), KoinComponent {
     }
 
     private fun animateProgressBarOnLoadFinish() {
+        if (viewModel.filesCountLiveData.value == 0) {
+            return
+        }
         val enlargeAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.enlarge)
         val disappearAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.disappear)
         enlargeAnim.setListeners(
