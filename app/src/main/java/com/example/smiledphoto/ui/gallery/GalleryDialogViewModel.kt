@@ -30,7 +30,7 @@ class GalleryDialogViewModel : ViewModel() {
                     .also { filesCountLiveData.postValue(it.size) }
                     .forEach { loadGalleryImage(it) }
             } catch (ex: Throwable) {
-                galleryLiveData.postValue(null)
+                galleryLiveData.postValue(mutableListOf())
             } finally {
                 isLoading.postValue(false)
             }

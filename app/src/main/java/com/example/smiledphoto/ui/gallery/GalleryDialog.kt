@@ -1,11 +1,12 @@
 package com.example.smiledphoto.ui.gallery
 
 import android.content.Intent
+import android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+import android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.content.FileProvider.getUriForFile
 import androidx.databinding.DataBindingUtil
@@ -24,6 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.KoinComponent
 import java.io.File
 
+
 class GalleryDialog : DialogFragment(), KoinComponent {
 
     companion object {
@@ -33,7 +35,21 @@ class GalleryDialog : DialogFragment(), KoinComponent {
     }
 
     private val viewModel: GalleryDialogViewModel by viewModel()
-    private val recyclerAdapter = GalleryRecyclerAdapter()
+    private val recyclerAdapter: GalleryRecyclerAdapter by lazy {
+        GalleryRecyclerAdapter(object : GalleryRecyclerAdapter.GalleryItemActions {
+            override fun show(path: String) {
+                showImageInExternalApp(path)
+            }
+
+            override fun share(path: String) {
+                shareImage(path)
+            }
+
+            override fun delete(path: String) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -97,6 +113,7 @@ class GalleryDialog : DialogFragment(), KoinComponent {
     }
 
     private fun loadGallery() {
+        galleryRecyclerView.itemAnimator = null
         galleryRecyclerView.adapter = recyclerAdapter
         val galleryPath = requireArguments().getString(Constants.BUNDLE_GALLERY_PATH)!!
         viewModel.loadGallery(galleryPath)
@@ -109,5 +126,14 @@ class GalleryDialog : DialogFragment(), KoinComponent {
             putExtra(Intent.EXTRA_STREAM, uri)
         }
         startActivity(Intent.createChooser(intent, getString(R.string.share_image_chooser_title)))
+    }
+
+    fun showImageInExternalApp(path: String) {
+        val uri = getUriForFile(requireContext(), Constants.FILE_AUTHORITY, File(path))
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, Constants.IMAGE_MIME_TYPE)
+            flags = FLAG_GRANT_READ_URI_PERMISSION or FLAG_GRANT_WRITE_URI_PERMISSION
+        }
+        startActivity(Intent.createChooser(intent, getString(R.string.show_image_chooser_title)))
     }
 }

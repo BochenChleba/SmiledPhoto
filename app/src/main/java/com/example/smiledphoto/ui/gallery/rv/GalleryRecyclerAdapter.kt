@@ -11,7 +11,7 @@ import com.example.smiledphoto.ui.gallery.GalleryItem
 import kotlinx.coroutines.CoroutineScope
 
 class GalleryRecyclerAdapter(
-    //private val callback: RecyclerItemActions
+    private val listener: GalleryItemActions
 ) : RecyclerView.Adapter<GalleryRecyclerViewHolder>() {
 
     private val items = mutableListOf<GalleryItem>()
@@ -26,7 +26,7 @@ class GalleryRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: GalleryRecyclerViewHolder, position: Int) {
-        holder.bindItem(items[position])
+        holder.bindItem(items[position], listener)
         holder.setItemClickListener {
             val prevSelectedItemPosition = selectedItemPosition
             selectedItemPosition = position
@@ -51,5 +51,11 @@ class GalleryRecyclerAdapter(
     fun append(itemsToAppend: List<GalleryItem>) {
         items.addAll(itemsToAppend)
         notifyItemRangeChanged(items.size - itemsToAppend.size, itemsToAppend.size)
+    }
+
+    interface GalleryItemActions {
+        fun show(path: String)
+        fun share(path: String)
+        fun delete(path: String)
     }
 }

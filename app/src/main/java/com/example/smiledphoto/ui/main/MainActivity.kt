@@ -21,8 +21,9 @@ import java.io.File
 
 abstract class MainActivity : AppCompatActivity(), KoinComponent {
 
-    // handle empty gallery
-    // implement photo actions - show, share, delete
+    // implement photo actions - delete
+    // repackage to com.github.bochenchleba.smiledphoto
+    // upload on github
 
     protected val viewModel: MainViewModel by inject()
     protected val galleryDirectory: File by lazy {

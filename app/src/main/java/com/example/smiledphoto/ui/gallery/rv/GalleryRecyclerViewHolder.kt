@@ -10,9 +10,18 @@ class GalleryRecyclerViewHolder(
     val binding: RecyclerItemGalleryBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bindItem(dto: GalleryItem) {
+    fun bindItem(dto: GalleryItem, listener: GalleryRecyclerAdapter.GalleryItemActions) {
         binding.galleryItem = dto
         binding.photoThumbnailImageView.setImageBitmap(dto.thumbnail)
+        binding.showTextView.setOnClickListener {
+            listener.show(dto.path)
+        }
+        binding.shareTextView.setOnClickListener {
+            listener.share(dto.path)
+        }
+        binding.deleteTextView.setOnClickListener {
+            listener.delete(dto.path)
+        }
         binding.executePendingBindings()
     }
 

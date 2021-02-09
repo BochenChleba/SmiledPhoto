@@ -11,7 +11,7 @@ object Constants {
     const val BUNDLE_PHOTO_PATH = "1"
     const val BUNDLE_GALLERY_PATH = "2"
     const val PREFERENCES_NAME = "SMILED_PHOTO_PREFERENCES"
-    const val IMAGE_MIME_TYPE = "image/png"
+    const val IMAGE_MIME_TYPE = "image/*"
     const val FILE_AUTHORITY = "com.example.smiledphoto"
     val REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,

@@ -14,6 +14,7 @@
     <string name="photo_item_open_action">Open</string>
     <string name="photo_item_close_action">Close</string>
     <string name="share_image_chooser_title">Share Image</string>
+    <string name="show_image_chooser_title">Show Image</string>
 
     <string name="settings_quality_label">Photo quality</string>
     <string name="settings_probability_threshold">Smiling probability threshold</string>
@@ -31,4 +32,5 @@
     <string name="gallery_item_show_action">Show</string>
     <string name="gallery_item_share_action">Share</string>
     <string name="gallery_item_delete_action">Delete</string>
+    <string name="gallery_close">Close</string>
 </resources>
