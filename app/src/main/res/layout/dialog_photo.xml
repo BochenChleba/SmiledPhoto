@@ -6,10 +6,10 @@
     <data>
         <variable
             name="dialog"
-            type="com.example.smiledphoto.ui.photo_dialog.PhotoDialog" />
+            type="com.github.bochenchleba.smiledphoto.ui.photo_dialog.PhotoDialog" />
         <variable
             name="viewModel"
-            type="com.example.smiledphoto.ui.photo_dialog.PhotoDialogViewModel" />
+            type="com.github.bochenchleba.smiledphoto.ui.photo_dialog.PhotoDialogViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

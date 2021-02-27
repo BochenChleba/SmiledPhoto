@@ -7,7 +7,7 @@
     <data>
         <variable
             name="galleryItem"
-            type="com.example.smiledphoto.ui.gallery.GalleryItem" />
+            type="com.github.bochenchleba.smiledphoto.ui.gallery.GalleryItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

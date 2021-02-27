@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.smiledphoto">
+    package="com.github.bochenchleba.smiledphoto">
 
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -24,7 +24,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.smiledphoto"
+            android:authorities="com.github.bochenchleba.smiledphoto"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

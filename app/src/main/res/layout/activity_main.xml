@@ -8,10 +8,10 @@
         <import type="android.view.View"/>
         <variable
             name="activity"
-            type="com.example.smiledphoto.ui.main.MainActivity" />
+            type="com.github.bochenchleba.smiledphoto.ui.main.MainActivity" />
         <variable
             name="viewModel"
-            type="com.example.smiledphoto.ui.main.MainViewModel" />
+            type="com.github.bochenchleba.smiledphoto.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

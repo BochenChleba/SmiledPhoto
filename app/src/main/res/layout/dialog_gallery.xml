@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="dialog"
-            type="com.example.smiledphoto.ui.gallery.GalleryDialog" />
+            type="com.github.bochenchleba.smiledphoto.ui.gallery.GalleryDialog" />
         <variable
             name="viewModel"
-            type="com.example.smiledphoto.ui.gallery.GalleryDialogViewModel" />
+            type="com.github.bochenchleba.smiledphoto.ui.gallery.GalleryDialogViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

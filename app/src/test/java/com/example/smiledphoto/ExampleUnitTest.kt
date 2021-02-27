@@ -1,4 +1,4 @@
-package com.example.smiledphoto
+package com.github.bochenchleba.smiledphoto
 
 import org.junit.Test
 
